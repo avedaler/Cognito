@@ -4,7 +4,13 @@ const API_BASE = ".";
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
-    const text = (await res.text()) || res.statusText;
+    let text: string;
+    try {
+      const cloned = res.clone();
+      text = await cloned.text();
+    } catch {
+      text = res.statusText;
+    }
     throw new Error(`${res.status}: ${text}`);
   }
 }
@@ -18,6 +24,7 @@ export async function apiRequest(
     method,
     headers: data ? { "Content-Type": "application/json" } : {},
     body: data ? JSON.stringify(data) : undefined,
+    credentials: "same-origin",
   });
 
   await throwIfResNotOk(res);
@@ -31,7 +38,7 @@ export const getQueryFn: <T>(options: {
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
     const path = queryKey.join("/").replace(/\/\/+/g, "/");
-    const res = await fetch(`${API_BASE}${path}`);
+    const res = await fetch(`${API_BASE}${path}`, { credentials: "same-origin" });
 
     if (unauthorizedBehavior === "returnNull" && res.status === 401) {
       return null;
