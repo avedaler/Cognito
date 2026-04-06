@@ -1,0 +1,194 @@
+/* Import fonts MUST be first before @tailwind directives */
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,600,700,800&f[]=satoshi@300,400,500,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Cognito palette — deep indigo surfaces + amber accent */
+    /* Concept: private, introspective, like a well-lit study at night */
+    --background: 225 25% 97%;
+    --foreground: 225 30% 12%;
+
+    --card: 225 20% 98%;
+    --card-foreground: 225 30% 12%;
+
+    --popover: 225 20% 98%;
+    --popover-foreground: 225 30% 12%;
+
+    --primary: 225 65% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 225 15% 92%;
+    --secondary-foreground: 225 30% 20%;
+
+    --muted: 225 15% 92%;
+    --muted-foreground: 225 12% 50%;
+
+    --accent: 39 90% 50%;
+    --accent-foreground: 225 30% 12%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 225 15% 88%;
+    --input: 225 15% 88%;
+    --ring: 225 65% 40%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar */
+    --sidebar-background: 225 30% 14%;
+    --sidebar-foreground: 225 15% 78%;
+    --sidebar-primary: 39 90% 55%;
+    --sidebar-primary-foreground: 225 30% 10%;
+    --sidebar-accent: 225 25% 22%;
+    --sidebar-accent-foreground: 225 15% 88%;
+    --sidebar-border: 225 20% 20%;
+    --sidebar-ring: 225 65% 50%;
+
+    --font-display: 'Cabinet Grotesk', system-ui, sans-serif;
+    --font-body: 'Satoshi', system-ui, sans-serif;
+  }
+
+  .dark {
+    --background: 225 30% 8%;
+    --foreground: 225 15% 85%;
+
+    --card: 225 28% 11%;
+    --card-foreground: 225 15% 85%;
+
+    --popover: 225 28% 11%;
+    --popover-foreground: 225 15% 85%;
+
+    --primary: 225 65% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 225 25% 18%;
+    --secondary-foreground: 225 15% 80%;
+
+    --muted: 225 25% 18%;
+    --muted-foreground: 225 12% 55%;
+
+    --accent: 39 85% 58%;
+    --accent-foreground: 225 30% 10%;
+
+    --destructive: 0 62% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 225 20% 20%;
+    --input: 225 20% 20%;
+    --ring: 225 65% 55%;
+
+    /* Sidebar dark */
+    --sidebar-background: 225 35% 6%;
+    --sidebar-foreground: 225 12% 70%;
+    --sidebar-primary: 39 85% 58%;
+    --sidebar-primary-foreground: 225 30% 8%;
+    --sidebar-accent: 225 28% 14%;
+    --sidebar-accent-foreground: 225 15% 82%;
+    --sidebar-border: 225 25% 12%;
+    --sidebar-ring: 225 65% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    min-height: 100dvh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .hover-elevate {
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .hover-elevate:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(var(--foreground) / 0.08);
+  }
+
+  .active-elevate-2:active {
+    transform: translateY(0px) scale(0.98);
+  }
+
+  .toggle-elevate {
+    transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+  }
+  .toggle-elevated {
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+  }
+
+  /* Status colors */
+  .status-inbox { @apply bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300; }
+  .status-active { @apply bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300; }
+  .status-completed { @apply bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300; }
+  .status-archived { @apply bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400; }
+
+  /* Priority colors */
+  .priority-low { @apply bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400; }
+  .priority-medium { @apply bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300; }
+  .priority-high { @apply bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300; }
+  .priority-urgent { @apply bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300; }
+
+  /* Emotion colors */
+  .emotion-neutral { @apply bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400; }
+  .emotion-anxious { @apply bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300; }
+  .emotion-confident { @apply bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300; }
+  .emotion-confused { @apply bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300; }
+  .emotion-energized { @apply bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300; }
+  .emotion-stressed { @apply bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300; }
+
+  /* Scrollbar */
+  .scrollbar-thin::-webkit-scrollbar { width: 5px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 4px; }
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg,
+    hsl(var(--muted)) 25%,
+    hsl(var(--secondary)) 50%,
+    hsl(var(--muted)) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: calc(var(--radius) - 2px);
+}
+
+/* Custom scrollbar for sidebar */
+[data-sidebar="content"]::-webkit-scrollbar { width: 4px; }
+[data-sidebar="content"]::-webkit-scrollbar-track { background: transparent; }
+[data-sidebar="content"]::-webkit-scrollbar-thumb { background: hsl(var(--sidebar-border)); border-radius: 4px; }
